@@ -44,4 +44,10 @@ class PhotoUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def filename
+    if super.present?
+      @name ||= SecureRandom.uuid
+      "#{Time.now.year}/#{@name}.#{file.extension.downcase}"
+    end
+  end
 end
